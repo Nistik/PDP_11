@@ -28,8 +28,10 @@
 	vector<Command> ccpCommands;
 
 	NSArray *strings = [_inputField.string componentsSeparatedByString:@"\n"];
-	for (NSString *string in strings) {
+	for (NSString __strong *string in strings) {
+		string = [string stringByReplacingOccurrencesOfString:@"," withString:@""];
 		NSArray *commandAndArgs = [string componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" "]];
+		NSLog(@"commands: %@",commandAndArgs);
 		switch (commandAndArgs.count) {
 			case 1:
 				ccpCommands.push_back(Command([commandAndArgs[0] UTF8String]));
