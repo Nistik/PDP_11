@@ -41,7 +41,6 @@
 		CD4CFC481AAB51EB0021364E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CD513E681AA8586F00C88ADC /* PDPWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDPWindowController.h; sourceTree = "<group>"; };
 		CD513E691AA8586F00C88ADC /* PDPWindowController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PDPWindowController.mm; sourceTree = "<group>"; };
-		CDE55C341AAB772300507085 /* libboost_system.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_system.dylib; path = ../../../../usr/local/Cellar/boost/1.57.0/lib/libboost_system.dylib; sourceTree = "<group>"; };
 		DDE60C0E5242115AAA8788FD /* Pods-Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tests/Pods-Tests.release.xcconfig"; sourceTree = "<group>"; };
 		EE7467CF9662CFD5DB47E351 /* libPods-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -68,7 +67,6 @@
 		0825ABAFB758BD2AECEC1268 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				CDE55C341AAB772300507085 /* libboost_system.dylib */,
 				EE7467CF9662CFD5DB47E351 /* libPods-Tests.a */,
 			);
 			name = Frameworks;

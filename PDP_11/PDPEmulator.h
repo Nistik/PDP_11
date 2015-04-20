@@ -19,28 +19,8 @@ class PDPEmulator;
 typedef u_int8_t uint8;
 typedef u_int16_t uint16;
 
-typedef void(PDPEmulator::*fptr)(Command &);
 
 using namespace std;
-
-class Command {
-public:
-	string command;
-	string arg1;
-	/* String like 'RN', where N is general register number, or immediate */
-	string arg2;
-
-	/* String like 'RN', where N is general register number, or immediate */
-
-	Command(string c) : command(c) {
-	};
-
-	Command(string c, string a1) : command(c), arg1(a1) {
-	};
-
-	Command(string c, string a1, string a2) : command(c), arg1(a1), arg2(a2) {
-	};
-};
 
 class PDPEmulator {
 public:
@@ -49,48 +29,52 @@ public:
 	~PDPEmulator() {
 	};
 
-	void runLoop();
+	void fillROM();
+	void tick();
 
 public:
 	/*CPU*/
-	uint16 _registers[8] = {0};
-	uint16 &_FP = _registers[5];
-	uint16 &_SP = _registers[6];
-	uint16 &_PC = _registers[7];
+
 	uint8 _T;
 	uint8 _N;
 	uint8 _Z;
 	uint8 _V;
 	uint8 _C;
 
-	unordered_map<string, fptr> _commandFunctions;
+	const uint16 _registers_offset = 0;
+	const uint16 _RAM_offset = 8;
+	const uint16 _VRAM_offset = 16*512;
+	const uint16 _ROM_offset = 48*512;
 
-	/*Storage*/
-	/*ROM is 1024 16-bit words*/
-	vector<Command> _ROM;
-	uint16 _RAM[64 * 1024] = {0};
-	uint16 _VRAM[64 * 1024] = {0};
+	uint16 _memory[64*1024] = {0}; // 64*1024 bytes, uint16 = 2 bytes
+
+	uint16 *_registers = _memory + _registers_offset;
+	uint16 &_FP = _registers[5];
+	uint16 &_SP = _registers[6];
+	uint16 &_PC = _registers[7];
+
+	uint16 *_RAM = _memory + _RAM_offset;
+	uint16 *_VRAM = _memory + _VRAM_offset;
+	uint16 *_ROM = _memory + _ROM_offset;
 
 
-	void tick();
-	void execute(Command &c);
 
-	void fillROMWithCommands(vector<Command> &);
 protected:
-	void registerFunctionForCommand(string commandName, fptr f);
-	fptr getFunctionForCommand(Command &command);
+	void add(uint16 dest, uint16 source);
+	void mov(uint16 dest, uint16 source);
+	void sub(uint16 dest, uint16 source);
+	void cmp(uint16 dest, uint16 source);
+	void bnei(uint16 dest, uint16 source);
+	void bis(uint16 dest, uint16 source);
 
-#pragma mark Helper functions
-	uint16 getRegisterFromArgString(string &arg);
-	uint16 getImmediateFromArgString(string &arg);
-
-#pragma mark Command Functions Implementations
-	/*Does nothing*/
-	void c_nop(Command &);
-	/*Sets register to constant*/
-	void c_seti(Command &);
-	/*Adds two registers*/
-	void c_add(Command &);
+	void movi(uint16 dest, uint16 source);
+	void movp1(uint16 dest, uint16 source);
+	void movp2(uint16 dest, uint16 source);
+	void movpa(uint16 dest, uint16 source);
+	void movp1i(uint16 dest, uint16 source);
+	void addi(uint16 dest, uint16 source);
+	void cmpi(uint16 dest, uint16 source);
+	void jmp(uint16 dest, uint16 source);
 };
 
 #endif //__PDPEmulator_H_

@@ -10,8 +10,11 @@
 
 @interface PDPWindowController : NSWindowController
 @property(assign, nonatomic) IBOutlet NSTextView *inputField;
-@property(assign, nonatomic) IBOutlet NSTextView *outputField;
+@property(assign, nonatomic) IBOutlet NSImageView *vramView;
 
 - (IBAction)fillROM:(id)sender;
+
+- (IBAction)startButton:(id)sender;
 - (IBAction)stepButton:(id)sender;
+- (IBAction)stopButton:(id)sender;
 @end
